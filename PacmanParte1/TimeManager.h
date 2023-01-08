@@ -11,7 +11,7 @@ public:
 
 	unsigned int frameCount;
 	float time, deltaTime;
-	bool spawn = false;
+	int spawn = 0;
 	div_t residuo;
 	void nextFrame();
 };

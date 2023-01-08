@@ -1,6 +1,8 @@
 #include "Enemy.h"
+#include "Player.h"
 #include "TimeManager.h"
 #include <vector>
+#include "GlobalResources.h"
 
 /// <summary>
 /// Sets the needed variables
@@ -19,15 +21,9 @@ void Logic();
 /// </summary>
 void Draw();
 
-enum USER_INPUTS { NONE, UP, DOWN, RIGHT, LEFT, QUIT };
-Map pacman_map = Map();
-std::vector<Enemy> enemigos = std::vector<Enemy>();
-char player_char = 'O';
-float i = 0;
-int player_x = 1;
-int player_y = 1;
-int player_points = 0;
-USER_INPUTS input = USER_INPUTS::NONE;
+GlobalResources globalResources;
+Enemy enemigo;
+Player player;
 bool run = true;
 bool win = false;
 
@@ -55,146 +51,69 @@ void Setup()
 
     for (size_t i = 0; i < enemy_count; i++)
     {
-        enemigos.push_back(Enemy(pacman_map.spawn_enemy));
+        globalResources.enemigos.push_back(Enemy(globalResources.pacman_map.spawn_enemy));
     }
-
-    player_x = pacman_map.spawn_player.X;
-    player_y = pacman_map.spawn_player.Y;
+    player.player_x = globalResources.pacman_map.spawn_player.X;
+    player.player_y = globalResources.pacman_map.spawn_player.Y;
 }
 
 void Input()
 {
-    input = USER_INPUTS::NONE;
+    globalResources.input = globalResources.USER_INPUTS::NONE;
     if (ConsoleUtils::KeyPressed(VK_UP) || ConsoleUtils::KeyPressed('W'))
     {
-        input = USER_INPUTS::UP;
+        globalResources.input = globalResources.USER_INPUTS::UP;
     }
     if (ConsoleUtils::KeyPressed(VK_DOWN) || ConsoleUtils::KeyPressed('S'))
     {
-        input = USER_INPUTS::DOWN;
+        globalResources.input = globalResources.USER_INPUTS::DOWN;
     }
     if (ConsoleUtils::KeyPressed(VK_RIGHT) || ConsoleUtils::KeyPressed('D'))
     {
-        input = USER_INPUTS::RIGHT;
+        globalResources.input = globalResources.USER_INPUTS::RIGHT;
     }
     if (ConsoleUtils::KeyPressed(VK_LEFT) || ConsoleUtils::KeyPressed('A'))
     {
-        input = USER_INPUTS::LEFT;
+        globalResources.input = globalResources.USER_INPUTS::LEFT;
     }
     if (ConsoleUtils::KeyPressed(VK_ESCAPE) || ConsoleUtils::KeyPressed('Q'))
     {
-        input = USER_INPUTS::QUIT;
+        globalResources.input = globalResources.USER_INPUTS::QUIT;
     }
 }
 
 void Logic()
 {
-    if (win)
-    {
-        switch (input)
-        {
-        case QUIT:
-            run = false;
-            break;
-        }
-    }
-    else
-    {
-        COORD playerPos;
-        playerPos.X = player_x;
-        playerPos.Y = player_y;
-        bool playerDie = false;
-        for (size_t i = 0; i < enemigos.size(); i++)
-        {
-            if (enemigos[i].Logic(&pacman_map, playerPos))
-            {
-                playerDie = true;
-            }
-        }
-        if (playerDie)
-        {
-            player_x = pacman_map.spawn_player.X;
-            player_y = pacman_map.spawn_player.Y;
-        }
-        int player_y_new = player_y;
-        int player_x_new = player_x;
-        switch (input)
-        {
-        case UP:
-            player_y_new--;
-            break;
-        case DOWN:
-            player_y_new++;
-            break;
-        case RIGHT:
-            player_x_new++;
-            break;
-        case LEFT:
-            player_x_new--;
-            break;
-        case QUIT:
-            run = false;
-            break;
-        }
-        if (player_x_new < 0)
-        {
-            player_x_new = pacman_map.Width - 1;
-        }
-        player_x_new %= pacman_map.Width;
-        if (player_y_new < 0)
-        {
-            player_y_new = pacman_map.Height - 1;
-        }
-        player_y_new %= pacman_map.Height;
-
-        switch (pacman_map.GetTile(player_x_new, player_y_new))
-        {
-        case Map::MAP_TILES::MAP_WALL:
-            player_y_new = player_y;
-            player_x_new = player_x;
-            break;
-        case Map::MAP_TILES::MAP_POINT:
-            pacman_map.points--;
-            player_points++;
-            pacman_map.SetTile(player_x_new, player_y_new, Map::MAP_TILES::MAP_EMPTY);
-            break;
-        }
-
-        player_y = player_y_new;
-        player_x = player_x_new;
-        if (pacman_map.points <= 0)
-        {
-            win = true;
-        }
-    }
+    player.Logica(&globalResources.pacman_map, globalResources.input, globalResources.enemigos);
+    //enemigo.Logic(&globalResources.pacman_map, player.playerPos);
 }
 
 void Draw()
 {
     ConsoleUtils::Console_SetPos(0,0);
-    pacman_map.Draw();
+    globalResources.pacman_map.Draw();
 
 
-    for (size_t i = 0; i < enemigos.size(); i++)
+    for (size_t i = 0; i < globalResources.enemigos.size(); i++)
     {
         
-        enemigos[i].Draw();
+        globalResources.enemigos[i].Draw();
 
- 
+
+        
     }
     
 
-    ConsoleUtils::Console_SetPos(player_x, player_y);
-    ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::DARK_YELLOW);
-    std::cout << player_char;
-    ConsoleUtils::Console_ClearCharacter({ 0,(short)pacman_map.Height });
+    player.Draw();
+    ConsoleUtils::Console_ClearCharacter({ 0,(short)globalResources.pacman_map.Height });
     ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::CYAN);
-    std::cout << "Puntuacion actual: " << player_points << " Puntuacion pendiente: " << pacman_map.points << std::endl;
+    std::cout << "Puntuacion actual: " << player.player_points << " Puntuacion pendiente: " << globalResources.pacman_map.points << std::endl;
     std::cout << "Fotogramas: " << TimeManager::getInstance().frameCount << std::endl;
     std::cout << "DeltaTime: " << TimeManager::getInstance().deltaTime << std::endl;
     std::cout << "Tiempo: " << TimeManager::getInstance().time << std::endl;
     std::cout << "Residuo: " << TimeManager::getInstance().residuo.rem << std::endl;
-    std::cout << "Fantasmas: " << i << std::endl;
+    std::cout << "Enemigos: " << globalResources.enemigos.size() << std::endl;
+
 
     /*if (TimeManager::getInstance().spawn)
     {

@@ -1,12 +1,13 @@
 #pragma once
 #include "Map.h"
 #include <time.h>
+#include <vector>
 
 class Enemy
 {
 public:
 	COORD position;
-	
+
 
 
 private:
