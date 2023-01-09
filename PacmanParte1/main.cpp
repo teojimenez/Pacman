@@ -22,8 +22,7 @@ void Logic();
 void Draw();
 
 GlobalResources globalResources;
-Enemy enemigo;
-Player player;
+Player player = Player(globalResources.pacman_map.spawn_player);
 bool run = true;
 bool win = false;
 
@@ -84,8 +83,30 @@ void Input()
 
 void Logic()
 {
-    player.Logica(&globalResources.pacman_map, globalResources.input, globalResources.enemigos);
-    //enemigo.Logic(&globalResources.pacman_map, player.playerPos);
+    if (globalResources.input == GlobalResources::QUIT)
+    {
+        run = false;
+    }
+    if (win)
+    {
+        switch (globalResources.input)
+        {
+        case GlobalResources::QUIT:
+            run = false;
+            break;
+        }
+    }
+    if (globalResources.pacman_map.points <= 0)
+    {
+        win = true;
+        run = false;
+    }
+
+    for (size_t i = 0; i < globalResources.enemigos.size(); i++)
+    {
+       globalResources.enemigos[i].Logic(&globalResources.pacman_map, player.PlayerPosition);
+    }
+    player.Update(&globalResources.pacman_map, globalResources.input, globalResources.enemigos);
 }
 
 void Draw()
@@ -102,7 +123,6 @@ void Draw()
 
         
     }
-    
 
     player.Draw();
     ConsoleUtils::Console_ClearCharacter({ 0,(short)globalResources.pacman_map.Height });
