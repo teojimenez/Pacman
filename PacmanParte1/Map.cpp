@@ -2,7 +2,9 @@
 
 Map::Map()
 {
-	std::string Ruta = "mapa.txt";
+	std::string Ruta;
+	std::cout << "Escriba la ruta: " << std::endl;
+	std::cin >> Ruta;
 	std::ifstream fich(Ruta);
 	std::string line;
 	std::vector<std::string> lines;
