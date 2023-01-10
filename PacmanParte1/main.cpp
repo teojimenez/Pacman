@@ -123,11 +123,7 @@ void Draw()
 
     for (size_t i = 0; i < globalResources.enemigos.size(); i++)
     {
-        
-        globalResources.enemigos[i].Draw();
-
-
-        
+        globalResources.enemigos[i].Draw();   
     }
 
     player.Draw();

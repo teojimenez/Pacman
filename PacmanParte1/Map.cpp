@@ -43,11 +43,12 @@ Map::Map()
 			Width = std::stoi(WidthTemp);
 			Height = std::stoi(HeightTemp);
 			Size = Width * Height;
-
-
+		}
+		else
+		{
+			Map_Load.push_back(lines[i]);
 		}
 	}
-
 	storedmap = new MAP_TILES[Size];
 	points = 0;
 	//const char* Map_Load[] = {
@@ -71,6 +72,13 @@ Map::Map()
 	//	{"#..........................................#"},
 	//	{"##  ####################################  ##"}
 	//};
+	std::cout << "Map: " << Size << std::endl;
+	std::cout << "  Width: " << Width << std::endl;
+	std::cout << "  Height: " << Height << std::endl;
+	for (size_t i = 0; i < Map_Load.size(); i++)
+	{
+		std::cout << Map_Load[i] << std::endl;
+	}
 	int x = 0;
 	int y = 0;
 	char tile = ' ';
