@@ -15,6 +15,9 @@ private:
 	ConsoleUtils::CONSOLE_COLOR foreground = ConsoleUtils::CONSOLE_COLOR::DARK_RED;
 	ConsoleUtils::CONSOLE_COLOR background = ConsoleUtils::CONSOLE_COLOR::BLACK;
 
+	ConsoleUtils::CONSOLE_COLOR foreground_Normal = ConsoleUtils::CONSOLE_COLOR::DARK_RED;
+	ConsoleUtils::CONSOLE_COLOR foreground_Vulnerable = ConsoleUtils::CONSOLE_COLOR::DARK_BLUE;
+
 public:
 	Enemy(COORD spawn);
 

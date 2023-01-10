@@ -19,13 +19,20 @@ void TimeManager::nextFrame()
 
 	start = std::chrono::high_resolution_clock::now();
 	
-	residuo = div(time, 10);
-	if (residuo.rem == 0)
+	contador += deltaTime;
+
+}
+
+bool TimeManager::Contador()
+{
+	if (TimeManager::getInstance().contador > 10)
 	{
-		spawn = true;
+		contador;
+		return true;
 	}
-	else 
+	else
 	{
-		spawn = false;
+		return false;
 	}
 }
+

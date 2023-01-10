@@ -10,5 +10,5 @@ public:
 	USER_INPUTS input = USER_INPUTS::NONE;
 	Map pacman_map = Map();
 	std::vector<Enemy> enemigos = std::vector<Enemy>();
-
+	int enemy_count = 0;
 };

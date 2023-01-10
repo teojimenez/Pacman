@@ -154,6 +154,9 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="TimeManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\..\..\DAM\M5 UF1 - Desarrollo de software\c++\mapa\mapa.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

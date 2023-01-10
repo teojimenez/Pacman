@@ -15,6 +15,7 @@ void Player::Update(Map* pacman_map, GlobalResources::USER_INPUTS input, std::ve
     playerPos.X = player_x;
     playerPos.Y = player_y;
     bool playerDie = false;
+
     for (size_t i = 0; i < enemigos.size(); i++)
     {
         if (enemigos[i].Logic(pacman_map, playerPos))
