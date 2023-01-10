@@ -43,15 +43,15 @@ void Setup()
 
     srand(time(NULL));
 
-    int enemy_count = 0;
+    
 
     std::cout << "Cuantos enemigos quieres?" << std::endl;
-    std::cin >> enemy_count;
+    std::cin >> globalResources.enemy_count;
 
-    for (size_t i = 0; i < enemy_count; i++)
+    /*for (size_t i = 0; i < enemy_count; i++)
     {
         globalResources.enemigos.push_back(Enemy(globalResources.pacman_map.spawn_enemy));
-    }
+    }*/
     player.player_x = globalResources.pacman_map.spawn_player.X;
     player.player_y = globalResources.pacman_map.spawn_player.Y;
 }
@@ -83,7 +83,11 @@ void Input()
 
 void Logic()
 {
-
+    if (globalResources.enemigos.size() < globalResources.enemy_count && TimeManager::getInstance().Contador())
+    {
+        globalResources.enemigos.push_back(Enemy(globalResources.pacman_map.spawn_enemy));
+    }
+    
     if (globalResources.input == GlobalResources::QUIT)
     {
         run = false;
