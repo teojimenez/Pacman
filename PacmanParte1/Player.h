@@ -7,8 +7,7 @@ class Player
 {
 public:
 	COORD PlayerPosition;
-	int player_points = 0, player_x = 1, player_y = 1;
-	bool run = true, win = false;
+	int player_points = 0, player_x = 1, player_y = 1, vidas = 3;
 	char player_char = 'O';
 private:
 

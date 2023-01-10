@@ -25,6 +25,7 @@ GlobalResources globalResources;
 Player player = Player(globalResources.pacman_map.spawn_player);
 bool run = true;
 bool win = false;
+bool lose = false;
 
 int main()
 {
@@ -92,7 +93,7 @@ void Logic()
     {
         run = false;
     }
-    if (win)
+    if (win || lose)
     {
         switch (globalResources.input)
         {
@@ -101,17 +102,17 @@ void Logic()
             break;
         }
     }
+    if (player.vidas <= 0)
+    {
+        lose = true;
+        run = false;
+    }
     if (globalResources.pacman_map.points <= 0)
     {
         win = true;
         run = false;
     }
 
-    if (TimeManager::getInstance().Contador())
-    {
-        std::cout << "Estoy dentro del if " << std::endl;
-
-    }
     for (size_t i = 0; i < globalResources.enemigos.size(); i++)
     {
        globalResources.enemigos[i].Logic(&globalResources.pacman_map, player.PlayerPosition);
@@ -143,7 +144,15 @@ void Draw()
     std::cout << "Tiempo: " << TimeManager::getInstance().time << std::endl;
     //std::cout << "Tiempo Contador: " << TimeManager::getInstance().ContTime << std::endl;
     std::cout << "Enemigos: " << globalResources.enemigos.size() << std::endl;
+    std::cout << "Vidas: " << player.vidas << std::endl;
     std::cout << "Contador: " << TimeManager::getInstance().contador << std::endl;
+
+
+    /*if (TimeManager::getInstance().spawn)
+    {
+        i += 1;
+        
+    }*/
 
 
     
@@ -151,6 +160,14 @@ void Draw()
     {
         ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::GREEN);
         std::cout << "Has ganado!" << std::endl;
+        std::cout << "Pulsa Q para salir." << std::endl;
+    }
+    if (lose)
+    {
+        ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::DARK_RED);
+        std::cout << "Has perdido!" << std::endl;
+        std::cout << "Pulsa Q para salir." << std::endl;
+
     }
 
     TimeManager::getInstance().nextFrame();
