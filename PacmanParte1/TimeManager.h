@@ -13,6 +13,6 @@ public:
 	float time, deltaTime, residuo, contador, TiempoRespawn;
 	int spawn = 0;
 	void nextFrame();
-
+	bool Contador();
 };
 

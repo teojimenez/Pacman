@@ -103,6 +103,11 @@ void Logic()
         run = false;
     }
 
+    if (TimeManager::getInstance().Contador())
+    {
+        std::cout << "Estoy dentro del if " << std::endl;
+
+    }
     for (size_t i = 0; i < globalResources.enemigos.size(); i++)
     {
        globalResources.enemigos[i].Logic(&globalResources.pacman_map, player.PlayerPosition);

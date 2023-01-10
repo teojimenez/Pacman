@@ -26,3 +26,15 @@ void TimeManager::nextFrame()
 	}
 }
 
+bool TimeManager::Contador()
+{
+	if (TimeManager::getInstance().contador <= 5)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
