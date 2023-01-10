@@ -5,21 +5,21 @@ Map::Map()
 	std::string Ruta;
 	std::cout << "Escriba la ruta: " << std::endl;
 	std::cin >> Ruta;
-	std::ifstream fich(Ruta);
+	std::ifstream file(Ruta);
 	std::string line;
 	std::vector<std::string> lines;
-	while (std::getline(fich, line));
+	while (std::getline(file, line))
 	{
 		lines.push_back(line);
 	}
-	fich.close();
+	file.close();
 	Width = 0;
 	Height = 0;
 	Size = 0;
 	std::vector<std::string> Map_Load;
 	for (size_t i = 0; i < lines.size(); i++)
 	{
-		if (i == 0) 
+		if (i == 0)
 		{
 			std::string WidthTemp;
 			std::string HeightTemp;
@@ -53,27 +53,7 @@ Map::Map()
 	}
 	storedmap = new MAP_TILES[Size];
 	points = 0;
-	//const char* Map_Load[] = {
-	//	{"##  ####################################  ##"},
-	//	{"#..........................................#"},
-	//	{" .##################    ##################. "},
-	//	{" .#......................................#. "},
-	//	{"#.#.################ ## ################.#.#"},
-	//	{"#.#.#                ##                #.#.#"},
-	//	{"#.#.  # ############################ #  .#.#"},
-	//	{"#.#.# # #            ##              # #.#.#"},
-	//	{"#. .# # # ########## ## ############ # #. .#"},
-	//	{"#. .# #     E        ##        P     # #. .#"},
-	//	{"#. .# # # ########## ## ############ # #. .#"},
-	//	{"#.#.# # #            ##              # #.#.#"},
-	//	{"#.#.  # ############################ #  .#.#"},
-	//	{"#.#.#                ##                #.#.#"},
-	//	{"#.#.################ ## ################.#.#"},
-	//	{" .#......................................#. "},
-	//	{" .##################    ##################. "},
-	//	{"#..........................................#"},
-	//	{"##  ####################################  ##"}
-	//};
+
 	std::cout << "Map: " << Size << std::endl;
 	std::cout << "  Width: " << Width << std::endl;
 	std::cout << "  Height: " << Height << std::endl;
@@ -88,7 +68,7 @@ Map::Map()
 	{
 		x = i % Width;
 		y = i / Width;
-		tile =  Map_Load[y][x];
+		tile = Map_Load[y][x];
 		switch (tile)
 		{
 		case MAP_TILES::MAP_POINT:
