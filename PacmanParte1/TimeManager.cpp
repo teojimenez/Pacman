@@ -19,13 +19,6 @@ void TimeManager::nextFrame()
 
 	start = std::chrono::high_resolution_clock::now();
 	
-	residuo = div(time, 10);
-	if (residuo.rem == 0)
-	{
-		spawn = true;
-	}
-	else 
-	{
-		spawn = false;
-	}
+
 }
+

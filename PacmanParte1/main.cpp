@@ -83,6 +83,7 @@ void Input()
 
 void Logic()
 {
+
     if (globalResources.input == GlobalResources::QUIT)
     {
         run = false;
@@ -131,15 +132,8 @@ void Draw()
     std::cout << "Fotogramas: " << TimeManager::getInstance().frameCount << std::endl;
     std::cout << "DeltaTime: " << TimeManager::getInstance().deltaTime << std::endl;
     std::cout << "Tiempo: " << TimeManager::getInstance().time << std::endl;
-    std::cout << "Residuo: " << TimeManager::getInstance().residuo.rem << std::endl;
+    //std::cout << "Tiempo Contador: " << TimeManager::getInstance().ContTime << std::endl;
     std::cout << "Enemigos: " << globalResources.enemigos.size() << std::endl;
-
-
-    /*if (TimeManager::getInstance().spawn)
-    {
-        i += 1;
-        
-    }*/
 
 
     
@@ -148,5 +142,8 @@ void Draw()
         ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::GREEN);
         std::cout << "Has ganado!" << std::endl;
     }
+
     TimeManager::getInstance().nextFrame();
+    //TimeManager::getInstance().EnemySpawn();
+
 }
