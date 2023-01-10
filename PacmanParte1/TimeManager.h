@@ -10,7 +10,7 @@ public:
 	static TimeManager& getInstance();
 
 	unsigned int frameCount;
-	float time, deltaTime, residuo;
+	float time, deltaTime, residuo, contador, TiempoRespawn;
 	int spawn = 0;
 	void nextFrame();
 

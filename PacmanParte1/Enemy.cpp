@@ -9,6 +9,17 @@ Enemy::Enemy(COORD spawn)
 
 bool Enemy::Logic(Map* pacman_map, COORD playerPosition)
 {
+	if (TimeManager::getInstance().contador > 5)
+	{
+		foreground = foreground_Vulnerable;
+	}
+	else 
+	{
+		foreground = foreground_Normal;
+
+	}
+
+
 	int dir = rand() % 4; //Numero random de 0 a 4
 	COORD position_new = position;
 	switch (dir)

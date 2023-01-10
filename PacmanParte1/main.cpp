@@ -134,6 +134,7 @@ void Draw()
     std::cout << "Tiempo: " << TimeManager::getInstance().time << std::endl;
     //std::cout << "Tiempo Contador: " << TimeManager::getInstance().ContTime << std::endl;
     std::cout << "Enemigos: " << globalResources.enemigos.size() << std::endl;
+    std::cout << "Contador: " << TimeManager::getInstance().contador << std::endl;
 
 
     
