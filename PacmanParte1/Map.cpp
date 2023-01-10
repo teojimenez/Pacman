@@ -2,6 +2,12 @@
 
 Map::Map()
 {
+	int commaCount = 0;
+	points = 0;
+	int x = 0;
+	int y = 0;
+	char tile = ' ';
+
 	std::string Ruta;
 	std::cout << "Escriba la ruta: " << std::endl;
 	std::cin >> Ruta;
@@ -23,7 +29,6 @@ Map::Map()
 		{
 			std::string WidthTemp;
 			std::string HeightTemp;
-			int commaCount = 0;
 			for (size_t j = 0; j < lines[i].size(); j++)
 			{
 				if (lines[i][j] == ',')
@@ -52,7 +57,6 @@ Map::Map()
 		}
 	}
 	storedmap = new MAP_TILES[Size];
-	points = 0;
 
 	std::cout << "Map: " << Size << std::endl;
 	std::cout << "  Width: " << Width << std::endl;
@@ -61,9 +65,6 @@ Map::Map()
 	{
 		std::cout << Map_Load[i] << std::endl;
 	}
-	int x = 0;
-	int y = 0;
-	char tile = ' ';
 	for (size_t i = 0; i < Size; i++)
 	{
 		x = i % Width;

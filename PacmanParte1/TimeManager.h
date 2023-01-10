@@ -11,7 +11,7 @@ public:
 
 	unsigned int frameCount;
 	float time, deltaTime, residuo, contador, TiempoRespawn;
-	int spawn = 0;
+	int spawn = 0, contador = 0;
 	void nextFrame();
 	bool Contador();
 };

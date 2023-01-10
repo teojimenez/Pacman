@@ -27,7 +27,7 @@ bool TimeManager::Contador()
 {
 	if (TimeManager::getInstance().contador > 10)
 	{
-		contador = 0;
+		contador;
 		return true;
 	}
 	else
