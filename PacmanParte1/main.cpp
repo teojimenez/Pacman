@@ -25,6 +25,7 @@ GlobalResources globalResources;
 Player player = Player(globalResources.pacman_map.spawn_player);
 bool run = true;
 bool win = false;
+bool lose = false;
 
 int main()
 {
@@ -87,7 +88,7 @@ void Logic()
     {
         run = false;
     }
-    if (win)
+    if (win || lose)
     {
         switch (globalResources.input)
         {
@@ -95,6 +96,11 @@ void Logic()
             run = false;
             break;
         }
+    }
+    if (player.vidas <= 0)
+    {
+        lose = true;
+        run = false;
     }
     if (globalResources.pacman_map.points <= 0)
     {
@@ -133,7 +139,7 @@ void Draw()
     std::cout << "Tiempo: " << TimeManager::getInstance().time << std::endl;
     std::cout << "Residuo: " << TimeManager::getInstance().residuo.rem << std::endl;
     std::cout << "Enemigos: " << globalResources.enemigos.size() << std::endl;
-
+    std::cout << "Vidas: " << player.vidas << std::endl;
 
     /*if (TimeManager::getInstance().spawn)
     {
@@ -147,6 +153,14 @@ void Draw()
     {
         ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::GREEN);
         std::cout << "Has ganado!" << std::endl;
+        std::cout << "Pulsa Q para salir." << std::endl;
+    }
+    if (lose)
+    {
+        ConsoleUtils::Console_SetColor(ConsoleUtils::CONSOLE_COLOR::DARK_RED);
+        std::cout << "Has perdido!" << std::endl;
+        std::cout << "Pulsa Q para salir." << std::endl;
+
     }
     TimeManager::getInstance().nextFrame();
 }

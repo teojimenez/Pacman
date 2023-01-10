@@ -20,6 +20,7 @@ void Player::Update(Map* pacman_map, GlobalResources::USER_INPUTS input, std::ve
         if (enemigos[i].Logic(pacman_map, playerPos))
         {
             playerDie = true;
+            vidas--;
         }
     }
     if (playerDie)
